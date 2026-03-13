@@ -8,7 +8,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $message = strip_tags(trim($_POST["message"]));
 
     // Set the recipient email address.
-    $recipient = "yashrajbais@gmail.com"; 
+    $recipient = "360marketinghub.team@gmail.com"; 
 
     // Set the email subject.
     $subject = "New Demo Request from $name";
