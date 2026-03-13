@@ -1,0 +1,7 @@
+{
+  "name": "clindox-landing-page",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "npx http-server -p 2515"
+  }
+}

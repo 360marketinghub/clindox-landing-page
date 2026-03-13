@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Clindox CRFWEB | Your Clinical Data Technology Partner</title>
+    <meta name="description" content="State-of-the-art EDC and ePRO solutions to collect, manage, and analyze clinical data efficiently while ensuring full regulatory compliance.">
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#003366",
+                        "accent": "#13c8ec",
+                        "background-light": "#f8fafc",
+                        "navy-deep": "#002244",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        .glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .text-gradient {
+            background: linear-gradient(to right, #003366, #13c8ec);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        /* Modal Styles */
+        #lead-modal {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        #lead-modal.active {
+            display: flex;
+            opacity: 1;
+        }
+        #lead-modal-content {
+            transform: scale(0.9);
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        #lead-modal.active #lead-modal-content {
+            transform: scale(1);
+        }
+    </style>
+</head>
+<body class="font-display bg-background-light text-slate-900 selection:bg-primary selection:text-white">
+    <!-- Lead Generation Modal -->
+    <div id="lead-modal" class="fixed inset-0 z-[100] items-center justify-center p-4 bg-navy-deep/60 backdrop-blur-sm">
+        <div id="lead-modal-content" class="bg-white w-full max-w-xl rounded-[2rem] shadow-2xl relative overflow-hidden">
+            <button id="close-modal" class="absolute top-6 right-6 text-slate-400 hover:text-primary transition-colors">
+                <span class="material-symbols-outlined text-3xl font-bold">close</span>
+            </button>
+            <div class="p-8 lg:p-12">
+                <div class="flex items-center gap-3 mb-6">
+                    <span class="material-symbols-outlined text-accent text-4xl">event_available</span>
+                    <h3 class="text-3xl font-black text-slate-900">Book Your Demo</h3>
+                </div>
+                <p class="text-slate-500 mb-8 font-medium">Experience how our EDC and ePRO solutions can transform your clinical trials. Please fill out the form below.</p>
+                
+                <form id="demo-form" class="space-y-5">
+                    <div class="grid grid-cols-2 gap-5">
+                        <div class="space-y-2 col-span-2 sm:col-span-1">
+                            <label class="text-xs font-black uppercase tracking-widest text-slate-400 ml-1">Full Name</label>
+                            <input type="text" required placeholder="John Doe" class="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-accent focus:border-accent transition-all outline-none">
+                        </div>
+                        <div class="space-y-2 col-span-2 sm:col-span-1">
+                            <label class="text-xs font-black uppercase tracking-widest text-slate-400 ml-1">Work Email</label>
+                            <input type="email" required placeholder="john@company.com" class="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-accent focus:border-accent transition-all outline-none">
+                        </div>
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-xs font-black uppercase tracking-widest text-slate-400 ml-1">Company Name</label>
+                        <input type="text" required placeholder="Life Sciences Inc." class="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-accent focus:border-accent transition-all outline-none">
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-xs font-black uppercase tracking-widest text-slate-400 ml-1">Message (Optional)</label>
+                        <textarea rows="3" placeholder="Tell us about your upcoming study..." class="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-accent focus:border-accent transition-all outline-none resize-none"></textarea>
+                    </div>
+                    <button type="submit" class="w-full bg-primary text-white py-5 rounded-xl text-lg font-black hover:bg-navy-deep transition-all shadow-xl shadow-primary/20 transform active:scale-95">
+                        Schedule My Demo
+                    </button>
+                    <p class="text-center text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-4">
+                         <span class="material-symbols-outlined text-[10px] align-middle mr-1">lock</span> 100% Secure & Compliant Lead Intake
+                    </p>
+                </form>
+            </div>
+            <!-- Success View (Hidden) -->
+            <div id="success-view" class="hidden p-12 text-center">
+                <div class="size-20 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <span class="material-symbols-outlined text-5xl">check_circle</span>
+                </div>
+                <h4 class="text-3xl font-black text-slate-900 mb-4">Request Received!</h4>
+                <p class="text-slate-500 mb-8 font-medium">Thank you for your interest. One of our clinical technology experts will reach out to you within 24 hours.</p>
+                <button id="success-close" class="bg-primary text-white px-10 py-4 rounded-xl font-bold">Got it</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header & Navigation -->
+    <header class="fixed top-0 w-full z-50 glass border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <div class="flex items-center gap-4">
+                <img src="web-logo.webp" alt="Clindox Logo" class="h-10 w-auto">
+            </div>
+            <nav class="hidden md:flex items-center gap-10">
+                <a class="text-sm font-semibold text-slate-700 hover:text-primary transition-colors" href="#features">The Difference</a>
+                <a class="text-sm font-semibold text-slate-700 hover:text-primary transition-colors" href="#products">Core Products</a>
+                <a class="text-sm font-semibold text-slate-700 hover:text-primary transition-colors" href="#medical-device">Medical Device</a>
+                <a class="text-sm font-semibold text-slate-700 hover:text-primary transition-colors" href="#testimonials">Testimonials</a>
+            </nav>
+            <div class="flex items-center gap-4">
+                <button class="trigger-modal bg-primary text-white px-6 py-2.5 rounded-lg text-sm font-bold hover:bg-opacity-90 transition-all shadow-md shadow-primary/20">
+                    Book a Web Demo
+                </button>
+                <button class="md:hidden flex items-center text-primary" id="mobile-toggle">
+                    <span class="material-symbols-outlined text-3xl">menu</span>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile Nav -->
+        <div id="mobile-menu" class="hidden md:hidden absolute top-20 left-0 w-full bg-white border-b border-slate-200 p-6 flex flex-col gap-4 shadow-xl">
+             <a class="text-sm font-semibold text-slate-700" href="#features">The Difference</a>
+             <a class="text-sm font-semibold text-slate-700" href="#products">Core Products</a>
+             <a class="text-sm font-semibold text-slate-700" href="#medical-device">Medical Device</a>
+             <a class="text-sm font-semibold text-slate-700" href="#testimonials">Testimonials</a>
+             <button class="trigger-modal w-full bg-primary text-white py-3 rounded-lg font-bold mt-2">Book a Demo</button>
+        </div>
+    </header>
+
+    <main class="pt-20">
+        <!-- Hero Section -->
+        <section class="relative overflow-hidden bg-white pt-16 pb-24 lg:pt-32 lg:pb-40">
+            <div class="absolute top-0 right-0 w-1/2 h-full bg-primary/5 -skew-x-12 translate-x-1/4 z-0"></div>
+            <div class="max-w-7xl mx-auto px-6 relative z-10">
+                <div class="grid lg:grid-cols-2 gap-12 items-center">
+                    <div class="space-y-8">
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold uppercase tracking-wider">
+                            <span class="material-symbols-outlined text-sm">verified</span> Clinical Trial Data Technology Partner
+                        </div>
+                        <h2 class="text-5xl lg:text-6xl font-black text-slate-900 leading-[1.1]">
+                            Your Clinical Data Technology Partner: <span class="text-primary">Better Studies, Together.</span>
+                        </h2>
+                        <p class="text-lg text-slate-600 max-w-lg leading-relaxed">
+                            State-of-the-art EDC and ePRO solutions to collect, manage, and analyze clinical data efficiently while ensuring full regulatory compliance.
+                        </p>
+                        <div class="flex flex-wrap gap-4">
+                            <button class="trigger-modal bg-accent text-primary px-8 py-4 rounded-xl text-base font-bold hover:scale-105 transition-transform shadow-lg shadow-accent/30 text-center">
+                                Book a Web Demo
+                            </button>
+                            <a href="#products" class="border-2 border-slate-200 text-slate-700 px-8 py-4 rounded-xl text-base font-bold hover:bg-slate-50 transition-colors text-center">
+                                Explore Products
+                            </a>
+                        </div>
+                    </div>
+                    <div class="relative group">
+                        <div class="absolute -inset-4 bg-accent/20 rounded-3xl blur-2xl transition-all group-hover:blur-3xl"></div>
+                        <div class="relative bg-white p-2 rounded-[2rem] shadow-2xl border border-slate-100 overflow-hidden">
+                            <img src="hero-dashboard.png" alt="Clinical Trial Dashboard" class="w-full h-auto rounded-[1.5rem] transition-transform duration-500 group-hover:scale-105">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- The Clindox Difference -->
+        <section id="features" class="py-24 bg-background-light">
+            <div class="max-w-7xl mx-auto px-6 text-center mb-16">
+                <h3 class="text-3xl font-bold text-slate-900 uppercase tracking-tight">The Clindox Difference</h3>
+                <p class="text-slate-500 mt-4 max-w-2xl mx-auto font-medium text-lg">Market-proven technology to meet global regulatory and business objectives.</p>
+            </div>
+            <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Card 1 -->
+                <div class="reveal glass p-8 rounded-2xl shadow-xl shadow-slate-200/50 hover:-translate-y-2 transition-transform border-t-4 border-t-primary active">
+                    <div class="size-14 rounded-xl bg-primary/10 flex items-center justify-center mb-6">
+                        <span class="material-symbols-outlined text-primary text-3xl">speed</span>
+                    </div>
+                    <h4 class="text-lg font-bold text-slate-900 mb-3">Reduce Time to Market</h4>
+                    <p class="text-slate-600 text-sm leading-relaxed">Study setup in days, not months. We build it for you, or you build it yourself.</p>
+                </div>
+                <!-- Card 2 -->
+                <div class="reveal glass p-8 rounded-2xl shadow-xl shadow-slate-200/50 hover:-translate-y-2 transition-transform border-t-4 border-t-accent">
+                    <div class="size-14 rounded-xl bg-accent/10 flex items-center justify-center mb-6">
+                        <span class="material-symbols-outlined text-accent text-3xl">devices</span>
+                    </div>
+                    <h4 class="text-lg font-bold text-slate-900 mb-3">Versatile Data Capture</h4>
+                    <p class="text-slate-600 text-sm leading-relaxed">EDC, ePRO, or eDiary—data collection on any device, intuitive and integrated.</p>
+                </div>
+                <!-- Card 3 -->
+                <div class="reveal glass p-8 rounded-2xl shadow-xl shadow-slate-200/50 hover:-translate-y-2 transition-transform border-t-4 border-t-primary">
+                    <div class="size-14 rounded-xl bg-primary/10 flex items-center justify-center mb-6">
+                        <span class="material-symbols-outlined text-primary text-3xl">security</span>
+                    </div>
+                    <h4 class="text-lg font-bold text-slate-900 mb-3">Secure & Compliant</h4>
+                    <p class="text-slate-600 text-sm leading-relaxed">Market-proven technology to meet global regulatory and business objectives.</p>
+                </div>
+                <!-- Card 4 -->
+                <div class="reveal glass p-8 rounded-2xl shadow-xl shadow-slate-200/50 hover:-translate-y-2 transition-transform border-t-4 border-t-accent">
+                    <div class="size-14 rounded-xl bg-accent/10 flex items-center justify-center mb-6">
+                        <span class="material-symbols-outlined text-accent text-3xl">support_agent</span>
+                    </div>
+                    <h4 class="text-lg font-bold text-slate-900 mb-3">Human Support</h4>
+                    <p class="text-slate-600 text-sm leading-relaxed">Direct access to trained experts who prioritize your study's success.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Core Products -->
+        <section id="products" class="py-24 bg-white">
+            <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-20 items-center">
+                <div class="space-y-6">
+                    <h3 class="text-4xl font-black text-slate-900">Core Products</h3>
+                    <p class="text-slate-600 text-lg leading-relaxed">Everything you need to run efficient, compliant clinical studies in one unified platform.</p>
+                    <div class="pt-4 grid grid-cols-2 gap-4">
+                        <div class="p-4 bg-slate-50 rounded-xl flex items-center gap-3 border border-slate-100">
+                            <span class="material-symbols-outlined text-primary">verified</span>
+                            <span class="font-bold text-slate-700">Validated</span>
+                        </div>
+                        <div class="p-4 bg-slate-50 rounded-xl flex items-center gap-3 border border-slate-100">
+                            <span class="material-symbols-outlined text-primary">gavel</span>
+                            <span class="font-bold text-slate-700">Compliant</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-6">
+                    <div class="reveal bg-background-light p-8 rounded-2xl hover:bg-primary hover:text-white transition-all group border border-slate-100 shadow-sm hover:shadow-xl">
+                        <span class="material-symbols-outlined text-5xl mb-4 text-primary group-hover:text-accent">description</span>
+                        <h5 class="text-xl font-bold mb-2">eCRF</h5>
+                        <p class="text-sm opacity-80">Streamlined Electronic Case Report Forms for trial efficiency.</p>
+                    </div>
+                    <div class="reveal bg-background-light p-8 rounded-2xl hover:bg-primary hover:text-white transition-all group border border-slate-100 shadow-sm hover:shadow-xl">
+                        <span class="material-symbols-outlined text-5xl mb-4 text-primary group-hover:text-accent">smartphone</span>
+                        <h5 class="text-xl font-bold mb-2">ePRO & eDiary</h5>
+                        <p class="text-sm opacity-80">Integrated subject-led data collection on any device.</p>
+                    </div>
+                    <div class="reveal bg-background-light p-8 rounded-2xl hover:bg-primary hover:text-white transition-all group border border-slate-100 shadow-sm hover:shadow-xl">
+                        <span class="material-symbols-outlined text-5xl mb-4 text-primary group-hover:text-accent">medical_services</span>
+                        <h5 class="text-xl font-bold mb-2">MedDRA Coding</h5>
+                        <p class="text-sm opacity-80">Built-in regulatory dictionary coding for safety data.</p>
+                    </div>
+                    <div class="reveal bg-background-light p-8 rounded-2xl hover:bg-primary hover:text-white transition-all group border border-slate-100 shadow-sm hover:shadow-xl">
+                        <span class="material-symbols-outlined text-5xl mb-4 text-primary group-hover:text-accent">shuffle</span>
+                        <h5 class="text-xl font-bold mb-2">Randomization</h5>
+                        <p class="text-sm opacity-80">Simple, block, and stratified randomization options.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Medical Device Focus -->
+        <section id="medical-device" class="py-20 bg-slate-900 text-white overflow-hidden relative">
+            <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-10">
+                <div class="flex items-center gap-8 flex-1">
+                    <div class="relative">
+                        <div class="size-24 rounded-full border-4 border-accent border-dashed animate-[spin_20s_linear_infinite] absolute -inset-2 opacity-50"></div>
+                        <div class="size-24 bg-white/10 rounded-full flex items-center justify-center relative">
+                            <span class="material-symbols-outlined text-4xl text-accent">biotech</span>
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="text-3xl font-black mb-3">Proven for Medical Device Investigations</h4>
+                        <p class="text-slate-400 max-w-xl text-lg">Helping companies meet IVDR and business compliance requirements with cost-effective, market-tested EDC solutions.</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-4 bg-white/5 p-8 rounded-2xl border border-white/10 shadow-2xl">
+                    <div class="text-right">
+                        <div class="text-accent font-black text-2xl tracking-tighter">IVDR Ready</div>
+                        <div class="text-xs uppercase tracking-widest text-slate-400 font-bold">Regulatory Compliant</div>
+                    </div>
+                    <span class="material-symbols-outlined text-6xl text-accent">clinical_notes</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Social Proof -->
+        <section id="testimonials" class="py-24 bg-background-light">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-6 text-center md:text-left">
+                    <div class="max-w-xl mx-auto md:mx-0">
+                        <h3 class="text-4xl font-black text-slate-900 tracking-tight">Social Proof</h3>
+                        <p class="text-slate-500 mt-4 font-medium text-lg">Trusted by clinical trial leaders around the world.</p>
+                    </div>
+                    <div class="flex flex-col items-center gap-3 p-6 bg-white rounded-2xl shadow-xl border border-slate-200 mx-auto md:mx-0">
+                        <div class="flex text-amber-500">
+                            <span class="material-symbols-outlined fill-1 text-2xl">star</span>
+                            <span class="material-symbols-outlined fill-1 text-2xl">star</span>
+                            <span class="material-symbols-outlined fill-1 text-2xl">star</span>
+                            <span class="material-symbols-outlined fill-1 text-2xl">star</span>
+                            <span class="material-symbols-outlined fill-1 text-2xl">star</span>
+                        </div>
+                        <span class="text-sm font-black text-slate-700 uppercase tracking-wider">5-Star Rated on Capterra</span>
+                    </div>
+                </div>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="reveal bg-white p-10 rounded-[2rem] shadow-xl shadow-slate-200/50 relative border border-slate-100">
+                        <span class="material-symbols-outlined absolute top-8 right-10 text-slate-100 text-7xl select-none">format_quote</span>
+                        <p class="text-slate-600 italic text-xl mb-8 relative z-10 leading-relaxed">"The Clindox team have been an incredible support to us throughout our study setup and execution. The platform is robust and highly flexible."</p>
+                        <div class="flex items-center gap-4">
+                            <div class="size-14 rounded-full bg-primary/20 flex items-center justify-center font-bold text-primary">MG</div>
+                            <div>
+                                <h6 class="font-bold text-slate-900 text-lg">Maria Galligan</h6>
+                                <p class="text-sm text-slate-500 font-medium">PMD Solutions</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="reveal bg-white p-10 rounded-[2rem] shadow-xl shadow-slate-200/50 relative border border-slate-100">
+                        <span class="material-symbols-outlined absolute top-8 right-10 text-slate-100 text-7xl select-none">format_quote</span>
+                        <p class="text-slate-600 italic text-xl mb-8 relative z-10 leading-relaxed">"The time and cost saving is significant. I wouldn't hesitate to recommend it. Clindox provides a state-of-the-art solution for clinical researchers."</p>
+                        <div class="flex items-center gap-4">
+                            <div class="size-14 rounded-full bg-accent/20 flex items-center justify-center font-bold text-primary">DS</div>
+                            <div>
+                                <h6 class="font-bold text-slate-900 text-lg">Dr. Salvi</h6>
+                                <p class="text-sm text-slate-500 font-medium">India</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Final Lead Gen -->
+        <section id="contact" class="py-24 bg-white">
+            <div class="max-w-5xl mx-auto px-6">
+                <div class="bg-primary rounded-[3rem] p-12 lg:p-20 text-center text-white relative overflow-hidden shadow-2xl shadow-primary/40">
+                    <div class="absolute -top-24 -left-24 size-96 bg-accent/10 rounded-full blur-3xl"></div>
+                    <div class="absolute -bottom-24 -right-24 size-96 bg-accent/10 rounded-full blur-3xl"></div>
+                    <h3 class="text-4xl lg:text-5xl font-black mb-8 relative z-10">Seeing is believing.</h3>
+                    <p class="text-2xl text-slate-300 mb-12 max-w-2xl mx-auto relative z-10 font-medium">Request your personalized demo today and experience the future of clinical data technology.</p>
+                    <div class="flex flex-col sm:flex-row items-center justify-center gap-6 relative z-10">
+                        <button class="trigger-modal w-full sm:w-auto bg-accent text-primary px-12 py-5 rounded-2xl text-xl font-black hover:bg-white transition-all transform hover:scale-105">
+                            Request Your Demo Today
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-50 pt-20 pb-10 border-t border-slate-200">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-16 mb-16 text-center md:text-left">
+                <div class="space-y-6 flex flex-col items-center md:items-start">
+                    <img src="web-logo.webp" alt="Clindox Logo" class="h-10 w-auto">
+                    <p class="text-slate-500 text-sm leading-relaxed max-w-xs">Your partner in clinical trial success. State-of-the-art data management since 2012.</p>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 lg:col-span-2">
+                    <div>
+                        <h5 class="font-black text-slate-900 mb-8 uppercase tracking-widest text-xs">Contact Europe</h5>
+                        <a href="tel:+441732316319" class="text-slate-600 text-lg font-bold flex items-center justify-center md:justify-start gap-4 mb-3 hover:text-primary transition-colors">
+                            <span class="material-symbols-outlined text-primary">call</span>
+                            +44 1732 316319
+                        </a>
+                        <p class="text-slate-500 text-sm font-medium">United Kingdom Support</p>
+                    </div>
+                    <div>
+                        <h5 class="font-black text-slate-900 mb-8 uppercase tracking-widest text-xs">Contact India</h5>
+                        <a href="tel:+912071531039" class="text-slate-600 text-lg font-bold flex items-center justify-center md:justify-start gap-4 mb-3 hover:text-primary transition-colors">
+                            <span class="material-symbols-outlined text-primary">call</span>
+                            +91 20 71531039
+                        </a>
+                        <p class="text-slate-500 text-sm font-medium">Pune, India Office</p>
+                    </div>
+                </div>
+            </div>
+            <div class="flex flex-col md:flex-row items-center justify-between pt-10 border-t border-slate-200 gap-6">
+                <p class="text-xs text-slate-400 font-bold uppercase tracking-widest">© 2026 Clindox Ltd. All rights reserved.</p>
+                <div class="flex gap-8">
+                    <a class="text-xs text-slate-500 hover:text-primary font-bold transition-colors" href="#">Privacy Policy</a>
+                    <a class="text-xs text-slate-500 hover:text-primary font-bold transition-colors" href="#">Security Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Modal Logic
+        const modal = document.getElementById('lead-modal');
+        const demoForm = document.getElementById('demo-form');
+        const successView = document.getElementById('success-view');
+        const triggers = document.querySelectorAll('.trigger-modal');
+        const closeBtn = document.getElementById('close-modal');
+        const successClose = document.getElementById('success-close');
+
+        const openModal = () => {
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            demoForm.classList.remove('hidden');
+            successView.classList.add('hidden');
+        };
+
+        const closeModal = () => {
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        };
+
+        triggers.forEach(trigger => trigger.addEventListener('click', openModal));
+        closeBtn.addEventListener('click', closeModal);
+        successClose.addEventListener('click', closeModal);
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeModal();
+        });
+
+        demoForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            demoForm.classList.add('hidden');
+            successView.classList.remove('hidden');
+        });
+
+        // Reveal Animations
+        const observerOptions = {
+            threshold: 0.15,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // Mobile Menu Toggle
+        const mobileToggle = document.getElementById('mobile-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileToggle?.addEventListener('click', () => {
+            mobileMenu?.classList.toggle('hidden');
+        });
+
+        // Close menu on link click
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu?.classList.add('hidden');
+            });
+        });
+
+        // Smooth Scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    e.preventDefault();
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
