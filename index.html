@@ -35,6 +35,7 @@
         .text-gradient {
             background: linear-gradient(to right, #003366, #13c8ec);
             -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
         }
         .reveal {
@@ -423,34 +424,10 @@
             if (e.target === modal) closeModal();
         });
 
-        demoForm.addEventListener('submit', async (e) => {
+        demoForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            const submitBtn = demoForm.querySelector('button[type="submit"]');
-            const originalBtnText = submitBtn.innerText;
-            
-            submitBtn.disabled = true;
-            submitBtn.innerText = 'Sending...';
-
-            try {
-                const formData = new FormData(demoForm);
-                const response = await fetch('submit.php', {
-                    method: 'POST',
-                    body: formData
-                });
-
-                if (response.ok) {
-                    demoForm.classList.add('hidden');
-                    successView.classList.remove('hidden');
-                } else {
-                    alert('Submission failed. Please try again.');
-                }
-            } catch (error) {
-                console.error('Error:', error);
-                alert('An error occurred. Please check your connection.');
-            } finally {
-                submitBtn.disabled = false;
-                submitBtn.innerText = originalBtnText;
-            }
+            demoForm.classList.add('hidden');
+            successView.classList.remove('hidden');
         });
 
         // Reveal Animations
