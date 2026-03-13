@@ -85,36 +85,36 @@
 <body class="font-display bg-background-light text-slate-900 selection:bg-primary selection:text-white">
     <!-- Lead Generation Modal -->
     <div id="lead-modal" class="fixed inset-0 z-[100] items-center justify-center p-4 bg-navy-deep/60 backdrop-blur-sm">
-        <div id="lead-modal-content" class="bg-white w-full max-w-xl rounded-[2rem] shadow-2xl relative overflow-hidden">
-            <button id="close-modal" class="absolute top-6 right-6 text-slate-400 hover:text-primary transition-colors">
-                <span class="material-symbols-outlined text-3xl font-bold">close</span>
+        <div id="lead-modal-content" class="bg-white w-full max-w-xl rounded-[1.5rem] sm:rounded-[2rem] shadow-2xl relative overflow-y-auto max-h-[95vh]">
+            <button id="close-modal" class="absolute top-4 right-4 sm:top-6 sm:right-6 text-slate-400 hover:text-primary transition-colors z-10">
+                <span class="material-symbols-outlined text-2xl sm:text-3xl font-bold">close</span>
             </button>
-            <div class="p-8 lg:p-12">
-                <div class="flex items-center gap-3 mb-6">
-                    <span class="material-symbols-outlined text-accent text-4xl">event_available</span>
-                    <h3 class="text-3xl font-black text-slate-900">Book Your Demo</h3>
+            <div class="p-6 sm:p-8 lg:p-12">
+                <div class="flex items-center gap-3 mb-4 sm:mb-6">
+                    <span class="material-symbols-outlined text-accent text-3xl sm:text-4xl">event_available</span>
+                    <h3 class="text-2xl sm:text-3xl font-black text-slate-900">Book Your Demo</h3>
                 </div>
-                <p class="text-slate-500 mb-8 font-medium">Experience how our EDC and ePRO solutions can transform your clinical trials. Please fill out the form below.</p>
+                <p class="text-sm sm:text-base text-slate-500 mb-6 sm:mb-8 font-medium">Experience how our EDC and ePRO solutions can transform your clinical trials. Please fill out the form below.</p>
                 
-                <form id="demo-form" class="space-y-5">
-                    <div class="grid grid-cols-2 gap-5">
+                <form id="demo-form" class="space-y-4 sm:space-y-5">
+                    <div class="grid grid-cols-2 gap-4 sm:gap-5">
                         <div class="space-y-2 col-span-2 sm:col-span-1">
-                            <label class="text-xs font-black uppercase tracking-widest text-slate-400 ml-1">Full Name</label>
-                            <input type="text" name="name" required placeholder="John Doe" class="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-accent focus:border-accent transition-all outline-none">
+                            <label class="text-[10px] sm:text-xs font-black uppercase tracking-widest text-slate-400 ml-1">Full Name</label>
+                            <input type="text" name="name" required placeholder="Enter your full name" class="w-full px-4 sm:px-5 py-3 sm:py-4 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-accent focus:border-accent transition-all outline-none text-sm sm:text-base">
                         </div>
                         <div class="space-y-2 col-span-2 sm:col-span-1">
-                            <label class="text-xs font-black uppercase tracking-widest text-slate-400 ml-1">Work Email</label>
-                            <input type="email" name="email" required placeholder="john@company.com" class="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-accent focus:border-accent transition-all outline-none">
+                            <label class="text-[10px] sm:text-xs font-black uppercase tracking-widest text-slate-400 ml-1">Work Email</label>
+                            <input type="email" name="email" required placeholder="name@company.com" class="w-full px-4 sm:px-5 py-3 sm:py-4 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-accent focus:border-accent transition-all outline-none text-sm sm:text-base">
                         </div>
                     </div>
                     <div class="space-y-2">
-                        <label class="text-xs font-black uppercase tracking-widest text-slate-400 ml-1">Company Name</label>
-                        <input type="text" name="company" required placeholder="Life Sciences Inc." class="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-accent focus:border-accent transition-all outline-none">
+                        <label class="text-[10px] sm:text-xs font-black uppercase tracking-widest text-slate-400 ml-1">Company Name</label>
+                        <input type="text" name="company" required placeholder="Enter your company name" class="w-full px-4 sm:px-5 py-3 sm:py-4 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-accent focus:border-accent transition-all outline-none text-sm sm:text-base">
                     </div>
                     <div class="space-y-2">
-                        <label class="text-xs font-black uppercase tracking-widest text-slate-400 ml-1">Phone Number</label>
-                        <div class="flex gap-3">
-                            <select id="country-select" name="country_code" class="w-24 px-3 py-4 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-accent focus:border-accent transition-all outline-none appearance-none cursor-pointer text-sm">
+                        <label class="text-[10px] sm:text-xs font-black uppercase tracking-widest text-slate-400 ml-1">Phone Number</label>
+                        <div class="flex gap-2 sm:gap-3">
+                            <select id="country-select" name="country_code" class="w-20 sm:w-24 px-2 sm:px-3 py-3 sm:py-4 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-accent focus:border-accent transition-all outline-none appearance-none cursor-pointer text-xs sm:text-sm">
                                 <option value="+44" data-len="10">UK (+44)</option>
                                 <option value="+91" data-len="10" selected>IN (+91)</option>
                                 <option value="+1" data-len="10">US (+1)</option>
@@ -132,18 +132,18 @@
                                    maxlength="10"
                                    title="Please enter exactly 10 digits" 
                                    inputmode="numeric" 
-                                   placeholder="9876543210" 
-                                   class="flex-1 px-5 py-4 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-accent focus:border-accent transition-all outline-none">
+                                   placeholder="10 digit number" 
+                                   class="flex-1 px-4 sm:px-5 py-3 sm:py-4 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-accent focus:border-accent transition-all outline-none text-sm sm:text-base">
                         </div>
                     </div>
                     <div class="space-y-2">
-                        <label class="text-xs font-black uppercase tracking-widest text-slate-400 ml-1">Message (Optional)</label>
-                        <textarea name="message" rows="2" placeholder="Tell us about your upcoming study..." class="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-accent focus:border-accent transition-all outline-none resize-none"></textarea>
+                        <label class="text-[10px] sm:text-xs font-black uppercase tracking-widest text-slate-400 ml-1">Message</label>
+                        <textarea name="message" rows="2" required placeholder="Tell us about your requirements..." class="w-full px-4 sm:px-5 py-3 sm:py-4 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-accent focus:border-accent transition-all outline-none resize-none text-sm sm:text-base"></textarea>
                     </div>
-                    <button type="submit" class="w-full bg-primary text-white py-5 rounded-xl text-lg font-black hover:bg-navy-deep transition-all shadow-xl shadow-primary/20 transform active:scale-95">
+                    <button type="submit" class="w-full bg-primary text-white py-4 sm:py-5 rounded-xl text-base sm:text-lg font-black hover:bg-navy-deep transition-all shadow-xl shadow-primary/20 transform active:scale-95">
                         Schedule My Demo
                     </button>
-                    <p class="text-center text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-4">
+                    <p class="text-center text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-2 sm:mt-4">
                          <span class="material-symbols-outlined text-[10px] align-middle mr-1">lock</span> 100% Secure & Compliant Lead Intake
                     </p>
                 </form>
