@@ -3,10 +3,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = strip_tags(trim($_POST["name"]));
     $email = filter_var(trim($_POST["email"]), FILTER_SANITIZE_EMAIL);
     $company = strip_tags(trim($_POST["company"]));
+    $country_code = strip_tags(trim($_POST["country_code"]));
+    $phone = strip_tags(trim($_POST["phone"]));
     $message = strip_tags(trim($_POST["message"]));
 
     // Set the recipient email address.
-    // Replace this with the user's actual email address.
     $recipient = "yashrajbais@gmail.com"; 
 
     // Set the email subject.
@@ -15,7 +16,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Build the email content.
     $email_content = "Name: $name\n";
     $email_content .= "Email: $email\n";
-    $email_content .= "Company: $company\n\n";
+    $email_content .= "Company: $company\n";
+    $email_content .= "Phone: $country_code $phone\n\n";
     $email_content .= "Message:\n$message\n";
 
     // Build the email headers.

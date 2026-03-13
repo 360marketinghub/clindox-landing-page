@@ -96,8 +96,26 @@
                         <input type="text" name="company" required placeholder="Life Sciences Inc." class="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-accent focus:border-accent transition-all outline-none">
                     </div>
                     <div class="space-y-2">
+                        <label class="text-xs font-black uppercase tracking-widest text-slate-400 ml-1">Phone Number</label>
+                        <div class="flex gap-3">
+                            <select name="country_code" class="w-24 px-3 py-4 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-accent focus:border-accent transition-all outline-none appearance-none cursor-pointer text-sm">
+                                <option value="+44">UK (+44)</option>
+                                <option value="+91" selected>IN (+91)</option>
+                                <option value="+1">US (+1)</option>
+                                <option value="+353">IE (+353)</option>
+                                <option value="+49">DE (+49)</option>
+                                <option value="+33">FR (+33)</option>
+                                <option value="+61">AU (+61)</option>
+                                <option value="+81">JP (+81)</option>
+                                <option value="+971">UAE (+971)</option>
+                                <option value="+65">SG (+65)</option>
+                            </select>
+                            <input type="tel" name="phone" required pattern="[0-9]{7,15}" title="Please enter a valid phone number (digits only)" inputmode="numeric" placeholder="9876543210" class="flex-1 px-5 py-4 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-accent focus:border-accent transition-all outline-none">
+                        </div>
+                    </div>
+                    <div class="space-y-2">
                         <label class="text-xs font-black uppercase tracking-widest text-slate-400 ml-1">Message (Optional)</label>
-                        <textarea name="message" rows="3" placeholder="Tell us about your upcoming study..." class="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-accent focus:border-accent transition-all outline-none resize-none"></textarea>
+                        <textarea name="message" rows="2" placeholder="Tell us about your upcoming study..." class="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-accent focus:border-accent transition-all outline-none resize-none"></textarea>
                     </div>
                     <button type="submit" class="w-full bg-primary text-white py-5 rounded-xl text-lg font-black hover:bg-navy-deep transition-all shadow-xl shadow-primary/20 transform active:scale-95">
                         Schedule My Demo
@@ -424,10 +442,38 @@
             if (e.target === modal) closeModal();
         });
 
-        demoForm.addEventListener('submit', (e) => {
+        demoForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            demoForm.classList.add('hidden');
-            successView.classList.remove('hidden');
+            
+            if (!demoForm.reportValidity()) return;
+
+            const submitBtn = demoForm.querySelector('button[type="submit"]');
+            const originalBtnText = submitBtn.innerText;
+            
+            submitBtn.disabled = true;
+            submitBtn.innerText = 'Sending...';
+
+            try {
+                const formData = new FormData(demoForm);
+                const response = await fetch('submit.php', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (response.ok) {
+                    demoForm.classList.add('hidden');
+                    successView.classList.remove('hidden');
+                } else {
+                    const errorText = await response.text();
+                    alert('Submission failed: ' + errorText);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred. Please check your connection.');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerText = originalBtnText;
+            }
         });
 
         // Reveal Animations
