@@ -98,19 +98,26 @@
                     <div class="space-y-2">
                         <label class="text-xs font-black uppercase tracking-widest text-slate-400 ml-1">Phone Number</label>
                         <div class="flex gap-3">
-                            <select name="country_code" class="w-24 px-3 py-4 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-accent focus:border-accent transition-all outline-none appearance-none cursor-pointer text-sm">
-                                <option value="+44">UK (+44)</option>
-                                <option value="+91" selected>IN (+91)</option>
-                                <option value="+1">US (+1)</option>
-                                <option value="+353">IE (+353)</option>
-                                <option value="+49">DE (+49)</option>
-                                <option value="+33">FR (+33)</option>
-                                <option value="+61">AU (+61)</option>
-                                <option value="+81">JP (+81)</option>
-                                <option value="+971">UAE (+971)</option>
-                                <option value="+65">SG (+65)</option>
+                            <select id="country-select" name="country_code" class="w-24 px-3 py-4 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-accent focus:border-accent transition-all outline-none appearance-none cursor-pointer text-sm">
+                                <option value="+44" data-len="10">UK (+44)</option>
+                                <option value="+91" data-len="10" selected>IN (+91)</option>
+                                <option value="+1" data-len="10">US (+1)</option>
+                                <option value="+353" data-len="9">IE (+353)</option>
+                                <option value="+49" data-len="11">DE (+49)</option>
+                                <option value="+33" data-len="9">FR (+33)</option>
+                                <option value="+61" data-len="9">AU (+61)</option>
+                                <option value="+81" data-len="10">JP (+81)</option>
+                                <option value="+971" data-len="9">UAE (+971)</option>
+                                <option value="+65" data-len="8">SG (+65)</option>
                             </select>
-                            <input type="tel" name="phone" required pattern="[0-9]{7,15}" title="Please enter a valid phone number (digits only)" inputmode="numeric" placeholder="9876543210" class="flex-1 px-5 py-4 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-accent focus:border-accent transition-all outline-none">
+                            <input id="phone-input" type="tel" name="phone" required 
+                                   oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+                                   pattern="[0-9]{10}" 
+                                   maxlength="10"
+                                   title="Please enter exactly 10 digits" 
+                                   inputmode="numeric" 
+                                   placeholder="9876543210" 
+                                   class="flex-1 px-5 py-4 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-accent focus:border-accent transition-all outline-none">
                         </div>
                     </div>
                     <div class="space-y-2">
@@ -421,6 +428,25 @@
         const triggers = document.querySelectorAll('.trigger-modal');
         const closeBtn = document.getElementById('close-modal');
         const successClose = document.getElementById('success-close');
+
+        const countrySelect = document.getElementById('country-select');
+        const phoneInput = document.getElementById('phone-input');
+
+        countrySelect?.addEventListener('change', () => {
+            const selectedOption = countrySelect.options[countrySelect.selectedIndex];
+            const length = selectedOption.getAttribute('data-len');
+            
+            if (length) {
+                phoneInput.setAttribute('maxlength', length);
+                phoneInput.setAttribute('pattern', `[0-9]{${length}}`);
+                phoneInput.setAttribute('title', `Please enter exactly ${length} digits`);
+                
+                // Clear input if current value exceeds new length
+                if (phoneInput.value.length > length) {
+                    phoneInput.value = phoneInput.value.slice(0, length);
+                }
+            }
+        });
 
         const openModal = () => {
             modal.classList.add('active');
